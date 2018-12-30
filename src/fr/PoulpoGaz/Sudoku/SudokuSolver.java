@@ -2,16 +2,14 @@ package fr.PoulpoGaz.Sudoku;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.io.*;
-import java.util.ArrayList;
 
 public class SudokuSolver {
 
     public static void main(String[] args) {
         new SudokuSolver();
     }
-
-    private int[][] sudoku = new int[9][9];
 
     public SudokuSolver() {
         try {
@@ -26,17 +24,19 @@ public class SudokuSolver {
             e.printStackTrace();
         }
 
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser("C:/Users/Valentin/JavaProject/Sudoku");
         jfc.setDialogTitle("Choississez votre fichier");
         jfc.setAcceptAllFileFilterUsed(false);
-        jfc.addChoosableFileFilter(new FileNameExtensionFilter("SudokuSolver(ss)","ss"));
-        jfc.setCurrentDirectory(new File("C:\\Users\\Valentin\\JavaProject\\Sudoku"));
-        jfc.showDialog(null, "Ok");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("SudokuSolver(ss)", "ss");
+        jfc.addChoosableFileFilter(filter);
+        jfc.showOpenDialog(null);
+
+        File path = jfc.getSelectedFile();
 
         String line = "";
 
         try {
-            BufferedReader bis = new BufferedReader(new InputStreamReader(new FileInputStream(jfc.getSelectedFile())));
+            BufferedReader bis = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
 
             line = bis.readLine();
 
@@ -52,6 +52,6 @@ public class SudokuSolver {
             System.exit(1);
         }
 
-        Sudoku sudoku = new Sudoku(line);
+        new Sudoku(line);
     }
 }
