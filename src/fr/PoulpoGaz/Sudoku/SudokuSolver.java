@@ -2,10 +2,9 @@ package fr.PoulpoGaz.Sudoku;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 
-public class SudokuSolver {
+public class SudokuSolver extends JFrame {
 
     public static void main(String[] args) {
         new SudokuSolver();
@@ -52,6 +51,16 @@ public class SudokuSolver {
             System.exit(1);
         }
 
-        new Sudoku(line);
+        Sudoku s = new Sudoku(line);
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setTitle("Sudoku solver");
+        setContentPane(s);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        s.solve();
     }
 }

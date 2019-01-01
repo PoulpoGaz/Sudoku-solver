@@ -1,6 +1,8 @@
 package fr.PoulpoGaz.Sudoku;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Series {
 
@@ -42,5 +44,21 @@ public class Series {
             }
             blocks[x].update();
         }
+    }
+
+    public boolean checkConstraint() {
+        ArrayList<Integer> check = new ArrayList<Integer>();
+        for(int x = 0; x < 9; x++) {
+            if(blocks[x].hasNoPossibility()) {
+                check.add(blocks[x].getValue());
+            }
+        }
+        Set set = new TreeSet();
+        set.addAll(check);
+        if(check.size() != set.size()) {
+            return true;
+        }
+
+        return false;
     }
 }
